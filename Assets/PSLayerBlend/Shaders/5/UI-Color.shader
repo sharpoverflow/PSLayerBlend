@@ -47,7 +47,7 @@ Shader "UI/Photoshop/Color"
 
             GrabPass
             {
-                "_BackgroundTexture"
+                
             }
 
             Pass
@@ -89,7 +89,7 @@ Shader "UI/Photoshop/Color"
                 fixed4 _TextureSampleAdd;
                 float4 _ClipRect;
                 float4 _MainTex_ST;
-                sampler2D _BackgroundTexture;
+                sampler2D _GrabTexture;
                 float _AlphaMix;
                 v2f vert(appdata_t v)
                 {
@@ -119,7 +119,7 @@ Shader "UI/Photoshop/Color"
 
                     fixed4 ccc = ComputeGrabScreenPos(IN.vertex);
 
-                    fixed4 grabColor = tex2Dproj(_BackgroundTexture, IN.grabPos);
+                    fixed4 grabColor = tex2Dproj(_GrabTexture, IN.grabPos);
                     return AlphaMix(Color(color, grabColor), color, grabColor, _AlphaMix);
                 }
             ENDCG

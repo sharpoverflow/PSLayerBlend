@@ -45,10 +45,7 @@ Shader "UI/Photoshop/ColorBurn"
 			Blend One Zero
 			ColorMask[_ColorMask]
 
-			GrabPass
-			{
-				"_BackgroundTexture"
-			}
+			GrabPass{}
 
 			Pass
 			{
@@ -88,7 +85,7 @@ Shader "UI/Photoshop/ColorBurn"
 				fixed4 _TextureSampleAdd;
 				float4 _ClipRect;
 				float4 _MainTex_ST;
-				sampler2D _BackgroundTexture;
+				sampler2D _GrabTexture;
 				float _AlphaMix;
 				v2f vert(appdata_t v)
 				{
@@ -116,7 +113,7 @@ Shader "UI/Photoshop/ColorBurn"
 					clip(color.a - 0.001);
 					#endif
 
-					fixed4 grabColor = tex2Dproj(_BackgroundTexture, IN.grabPos);
+					fixed4 grabColor = tex2Dproj(_GrabTexture, IN.grabPos);
 					return  AlphaMix(ColorBurn(color, grabColor), color, grabColor, _AlphaMix);
 				}
 			ENDCG
